@@ -13,6 +13,7 @@ class CowsAndBulls:
     def __init__(self):
         # Initialize the variables for the class
         self.numbers = [] # list of numbers to be guessed
+        self.guess = None # 4-digit number guessed by player
     
     def show_game_name(self):
     # Prints the name of a game at the beginning
@@ -28,6 +29,11 @@ class CowsAndBulls:
         for x in range(0,4):
             self.numbers.append(random.randint(0,9))
 #return "".join(str(e) for e in lista)    
+
+    def get_players_guess(self):
+    # Gets 4 digits from a player
+        while True:
+            self.guess = input("Guess a 4-digit number: ")
     
     def simulate(self):
     # Plays a round of cows and bulls game with the computer
