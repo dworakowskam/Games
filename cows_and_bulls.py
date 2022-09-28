@@ -22,7 +22,7 @@ class CowsAndBulls:
         print("*****************************************\n")
         print("You have to choose one of the three options, computer does the "
               "same. The rock wins with scissors, scissors wins with paper and "
-              "paper wins with rock.\n\n")
+              "paper wins with rock.\n")
     
     def randomly_generate_4_digits(self):
     # Randomly generates 4 digits to be guessed 
@@ -34,12 +34,16 @@ class CowsAndBulls:
     # Gets 4 digits from a player
         while True:
             self.guess = input("Guess a 4-digit number: ")
+            if len(self.guess) == 4 and self.guess.isdecimal():
+                break
+            else:
+                print("You must enter a 4-digit number")
     
     def simulate(self):
     # Plays a round of cows and bulls game with the computer
         self.show_game_name()
         self.randomly_generate_4_digits()
-
+        self.get_players_guess()
 
 if __name__ == "__main__":
     game = CowsAndBulls()
