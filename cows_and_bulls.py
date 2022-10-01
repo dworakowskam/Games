@@ -9,12 +9,14 @@ import random
 
 
 class CowsAndBulls:
-    # Handles an instance of a Rock-Paper-Scissors game
+    # Handles an instance of a cows and bulls game
     def __init__(self):
         # Initialize the variables for the class
         self.numbers = [] # list of numbers to be guessed
         self.numbers_str = None # numbers to be guessed converted to string
         self.guess = None # 4-digit number guessed by player
+        self.bulls = 0 # number of "bulls": numbers correctly guessed and in a correct position
+        self.cows = 0 # number of "cows": numbers correctly guessed but in incorrect position, one cow for one number position  
     
     def show_game_name(self):
     # Prints the name of a game at the beginning
@@ -42,7 +44,26 @@ class CowsAndBulls:
                 break
             else:
                 print("You must enter a 4-digit number")
-    
+                
+    def check_bulls(self):
+    # Checks how many bulls player got in his guess
+        for x in range(0,4):
+            if self.numbers[x] == self.guess[x]:
+                self.bulls += 1
+                
+    def check_cows(self):
+    # Check how many cows player got in his guess
+        numbers = []
+        guess = []
+        for x in range(0,4):
+            if self.numbers[x] != self.guess[x]:
+                numbers.append(self.numbers[x])
+                guess.append(self.guess[x])
+        for x in numbers:
+            if x in guess:
+                self.cows += 1
+                guess.remove(x)
+        
     def simulate(self):
     # Plays a round of cows and bulls game with the computer
         self.show_game_name()
@@ -50,30 +71,14 @@ class CowsAndBulls:
         self.get_players_guess()
         while self.guess != self.numbers_str:
             self.get_players_guess()
+            self. check_bulls()
+            self.check_cows()
 
 
 if __name__ == "__main__":
     game = CowsAndBulls()
     game.simulate()
     
-
-# def cows_and_bulls(random_digit, guess):
-#     bulls = 0
-#     cows = 0
-#     lista2 = []
-#     lista3 = []
-#     for x in range(0,4):
-#         if int(random_digit[x]) == int(guess[x]):
-#             cows += 1
-#             print(cows)
-#         elif int(random_digit[x]) != int(guess[x]):
-#             lista2.append(int(random_digit[x]))
-#             lista3.append(int(guess[x]))
-#     for x in lista3:
-#         if x in lista2:
-#             bulls += 1
-#             lista2.remove(x)      
-#     return print(cows, "cows, ", bulls, "bulls")   
 
 # if __name__ == "__main__":
     
