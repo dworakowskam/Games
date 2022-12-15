@@ -19,7 +19,7 @@ root.iconbitmap("favicon.ico")
 
 
 # determine window size and center the window on the screen
-window_width = 600
+window_width = 500
 window_height = 400
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -29,26 +29,29 @@ root.geometry(f"{window_width}x{window_height}+{center_x}+{center_y}")
 
 
 # place a label on the root window
-instruction = "You have to put three of your marks \nin a horizontal, vertical, \
-or diagonal row to win. \n Click in the space you want to place your piece."
+instruction = "You have to put three of your marks \nin a horizontal, vertical,\
+or diagonal row to win.\n Click in the space you want to place your piece."
 message = ttk.Label(
     root,
     text =instruction,
     background="cornsilk2",
     relief="solid",
     justify=tk.CENTER,
-    padding=10,
-    font=("Verdana", 9))
-message.pack()
+    font=("Verdana", 10),
+    )
+message.pack(fill=tk.BOTH, expand=True, anchor=tk.CENTER)
 
 
 # create Button widget for a play
 def return_pressed(event):
     print("Return key pressed.")
-button = ttk.Button(root, text="PLAY")
+button = ttk.Button(
+    root,
+    text="PLAY",
+    )
 button.bind('<Button>', return_pressed)
 button.focus()
-button.pack()
+button.pack(ipadx=20, ipady=20, expand=True)
 
 
 # keep the window displaying
