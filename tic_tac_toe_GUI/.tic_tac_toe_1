@@ -45,7 +45,7 @@ message = ttk.Label(
     padding=25,
     font=("Verdana", 10),
     )
-message.grid(row=0, column=0, rowspan=2, columnspan=1, ipady=100, ipadx=4)
+message.grid(rowspan=2, ipady=100, ipadx=4)
 
 
 # create Button widget for a play
