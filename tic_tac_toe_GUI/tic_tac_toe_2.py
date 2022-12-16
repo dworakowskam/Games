@@ -20,8 +20,8 @@ root.iconbitmap("favicon.ico")
 
 
 # determine window size and center the window on the screen
-window_width = 500
-window_height = 400
+window_width = 432
+window_height = 493
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 center_x = int(screen_width/2 - window_width/2)
@@ -30,28 +30,27 @@ root.geometry(f"{window_width}x{window_height}+{center_x}+{center_y}")
 
 
 # place a label on the root window
-message = "Click on the square to put your mark"
+message = " Click on the square to put your mark"
 message = ttk.Label(
     root,
     text=message,
     background="cornsilk2",
     relief="solid",
-    justify=tk.CENTER,
-    padding=20,
-    font=("Verdana", 9)
+    padding=9,
+    font=("Verdana", 10)
     )
-message.grid(row=0, columnspan=3)
+message.grid(row=0, columnspan=3, ipadx=15, ipady=35)
 
 
 # create Button widgets for a play
-ipadding = {"ipadx": 5, "ipady": 40}
+ipadding = {"ipadx": 12, "ipady": 45}
 def return_pressed(event):
     print("Return key pressed.")
     
 button1 = ttk.Button(root)
 button1.bind('<Button>', return_pressed)
 button1.focus()
-button1.grid(row=1, column=0, **ipadding)
+button1.grid(row=1, column=0, **ipadding, sticky=tk.SE)
 
 button2 = ttk.Button(root)
 button2.bind('<Button>', return_pressed)
@@ -61,12 +60,12 @@ button2.grid(row=1, column=1, **ipadding)
 button3 = ttk.Button(root)
 button3.bind('<Button>', return_pressed)
 button3.focus()
-button3.grid(row=1, column=2, **ipadding)
+button3.grid(row=1, column=2, **ipadding, sticky=tk.W)
 
 button4 = ttk.Button(root)
 button4.bind('<Button>', return_pressed)
 button4.focus()
-button4.grid(row=2, column=0, **ipadding)
+button4.grid(row=2, column=0, **ipadding, sticky=tk.E)
 
 button5 = ttk.Button(root)
 button5.bind('<Button>', return_pressed)
@@ -76,12 +75,12 @@ button5.grid(row=2, column=1, **ipadding)
 button6 = ttk.Button(root)
 button6.bind('<Button>', return_pressed)
 button6.focus()
-button6.grid(row=2, column=2, **ipadding)
+button6.grid(row=2, column=2, **ipadding, sticky=tk.W)
 
 button7 = ttk.Button(root)
 button7.bind('<Button>', return_pressed)
 button7.focus()
-button7.grid(row=3, column=0, **ipadding)
+button7.grid(row=3, column=0, **ipadding, sticky=tk.NE)
 
 button8 = ttk.Button(root)
 button8.bind('<Button>', return_pressed)
@@ -91,7 +90,7 @@ button8.grid(row=3, column=1, **ipadding)
 button9 = ttk.Button(root)
 button9.bind('<Button>', return_pressed)
 button9.focus()
-button9.grid(row=3, column=2, **ipadding)
+button9.grid(row=3, column=2, **ipadding, sticky=tk.NW)
 
 # # set the disabled flag
 # button.state(['disabled'])
