@@ -45,19 +45,25 @@ message = ttk.Label(
     padding=25,
     font=("Verdana", 10),
     )
-message.grid(rowspan=2, ipady=100, ipadx=4)
+message.grid(row=0, ipady=70, ipadx=4)
 
 
-# create Button widget for a play
+# create Button widget and frame for a play
 def return_pressed(event):
     print("Return key pressed.")
+frame1 = ttk.Frame(root, height=35)
+frame1.grid(row=1)
+frame = ttk.Frame(root, borderwidth=1, relief="ridge")
+frame.grid(row=2)
 button = ttk.Button(
-    root,
+    frame,
     text="PLAY",
     )
 button.bind('<Button>', return_pressed)
 button.focus()
-button.grid(row=2, rowspan=2, ipadx=20, ipady=20, pady=50)
+button.grid(ipady=20)
+frame3 = ttk.Frame(root, height=35)
+frame3.grid(row=3)
 
 
 # keep the window displaying
