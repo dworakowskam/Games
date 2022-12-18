@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Dec 11 07:21:34 2022
+
+@author: MD
+"""
+
 # import the classic Tk themed widgets
 import tkinter as tk
 # import the new Tk themed widgets
