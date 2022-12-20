@@ -6,9 +6,12 @@ windll.shcore.SetProcessDpiAwareness(1) # fix blurry text and UI
 
 
 class MainFrame(ttk.Frame):
-    
+    """ Creates frame with an entry
+    """
     instruction = "You have to put three of your marks\nin a horizontal, vertical,\n\
     or diagonal row to win.\nClick in the space\nyou want to place your piece."
+    
+    #photo_x = tk.PhotoImage(file="x.png")
     
     def __init__(self, game):
         super().__init__(game)
@@ -21,15 +24,46 @@ class MainFrame(ttk.Frame):
             relief="solid",
             justify=tk.CENTER,
             padding=32,
-            font=("Verdana", 10),
-            )
+            font=("Verdana", 10))
         self.instruction.grid(row=0, ipady=75) # place instruction on the grid
         self.play_button = ttk.Button(text="PLAY")# create button widget for starting a game
         self.play_button.grid(row=1, pady=40, ipady=20) # place play button on the grid
-        #self.play_button.bind('<Button>', pressed_play) # bind play button with a function
- 
+        self.play_button.bind('<Button>', self.change_frame) # bind play button with a function
+    
+    # def return_pressed(frame, image):
+    #     self.image_label = ttk.Label(
+    #         frame,
+    #         image = photo_x)
+    #     self.image_label.grid(row=0, column=0)
+        
+    def change_frame(self, event):
+        """ Handle button click event and creates new widgets for play
+        """
+        self.instruction.grid_forget()
+        self.play_button.grid_forget()
+        
+        message = "  Click on the square to put your mark"
+        self.message = ttk.Label( # place a label on the root window
+            text=message,
+            background="cornsilk2",
+            relief="solid",
+            padding=9,
+            font=("Verdana", 10))
+        self.message.grid(row=0, columnspan=3, ipadx=17, ipady=35)
+        
+        ipadding = {"ipadx": 12, "ipady": 45}
+        
+        self.frame1 = ttk.Frame(borderwidth=1, relief="ridge")
+        self.frame1.grid(row=1, column=0, sticky=tk.SE)    
+        self.button1 = ttk.Button(self.frame1, command=self.return_pressed())
+        # #button1.bind('<Button>', )
+        self.button1.grid(**ipadding)
+
+    
     
 class TicTacToe(tk.Tk):
+    """ Creates a root window
+    """
     
     window_width = 437 # determine window width
     window_height = 497 # determine window height
@@ -45,17 +79,10 @@ class TicTacToe(tk.Tk):
         self.center_y = int(self.winfo_screenheight()/2 - self.window_height/2) # set y value for centering window
         self.geometry(f"{self.window_width}x{self.window_height}+{self.center_x}+{self.center_y}") # set window size and position
         
-    def pressed_play(self):
-    #
-        pass
-        
     
     
 if __name__ == "__main__":
     
-    game = TicTacToe()
-    frame = MainFrame(game)
-    game.mainloop() # keep the window displaying
-    
-    
-
+    entry = TicTacToe()
+    main_frame = MainFrame(entry)
+    entry.mainloop() # keep the window displaying
