@@ -22,6 +22,16 @@ class MainFrame(ttk.Frame):
         super().__init__(game)
         self.create_entry_widgets()
         self.empty_spaces = []
+        self.frame1 = None
+        self.frame2 = None
+        self.frame3 = None
+        self.frame4 = None
+        self.frame5 = None
+        self.frame6 = None
+        self.frame7 = None
+        self.frame8 = None
+        self.frame9 = None
+        
         
     def create_entry_widgets(self):
         """ Creates widgets on entry frame """
@@ -44,6 +54,24 @@ class MainFrame(ttk.Frame):
         self.mark = ttk.Label(frame, text = " X", font=("Verdana", 45))
         self.mark.grid(row=0, column=0, ipadx=17)    
         self.put_mark_in_random_space(frame)
+        if frame == self.frame1:
+            self.frame1 = "X"
+        elif frame == self.frame2:
+            self.frame2 = "X"
+        elif frame == self.frame3:
+            self.frame3 = "X"
+        elif frame == self.frame4:
+            self.frame4 = "X"
+        elif frame == self.frame5:
+            self.frame5 = "X"
+        elif frame == self.frame6:
+            self.frame6 = "X"
+        elif frame == self.frame7:
+            self.frame7 = "X"
+        elif frame == self.frame8:
+            self.frame8 = "X"
+        elif frame == self.frame9:
+            self.frame9 = "X"
         
     def put_mark_in_random_space(self, frame):
         """ Puts O mark in a random space """
@@ -53,6 +81,24 @@ class MainFrame(ttk.Frame):
             self.mark = ttk.Label(self.random_space, text = " O", font=("Verdana", 45))
             self.mark.grid(row=0, column=0, ipadx=17)
             self.empty_spaces.remove(self.random_space)
+            if self.random_space == self.frame1:
+                self.frame1 = "O"
+            elif self.random_space == self.frame2:
+                self.frame2 = "O"
+            elif self.random_space == self.frame3:
+                self.frame3 = "O"
+            elif self.random_space == self.frame4:
+                self.frame4 = "O"
+            elif self.random_space == self.frame5:
+                self.frame5 = "O"
+            elif self.random_space == self.frame6:
+                self.frame6 = "O"
+            elif self.random_space == self.frame7:
+                self.frame7 = "O"
+            elif self.random_space == self.frame8:
+                self.frame8 = "O"
+            elif self.random_space == self.frame9:
+                self.frame9 = "O"
         else:
             self.print_end_result()
         
