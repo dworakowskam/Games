@@ -109,12 +109,14 @@ class MainFrame(ttk.Frame):
         """ Puts X mark in a clicked space """
         self.mark = ttk.Label(frame, text = " X", font=("Verdana", 45)) # creates an X label in the clicked frame
         self.mark.grid(row=0, column=0, ipadx=17)    
-        self.set_frame_status_as_x(frame)
-        self.check_winner()
-        self.empty_spaces.remove(frame)
-        self.put_mark_in_random_space(frame)
+        self.set_frame_state_as_x(frame)
+        if self.check_winner() == True:
+            self.print_end_result("X")
+        else:
+            self.empty_spaces.remove(frame)
+            self.put_mark_in_random_space(frame)
         
-    def set_frame_status_as_x(self, frame):
+    def set_frame_state_as_x(self, frame):
         """ Sets the value of a frame as "X" """
         if frame == self.frame1:
             self.frame1 = "X"
@@ -138,16 +140,17 @@ class MainFrame(ttk.Frame):
     def check_winner(self):
         """ Checks if there are three same marks in a row, column or diagonal """
         if self.frame1 == self.frame2 == self.frame3 or\
-            self.frame3 == self.frame4 == self.frame5 or\
-                self.frame6 ==self.frame7 == self.frame8: # checks rows
-                    self.print_end_result()
+            self.frame4 == self.frame5 == self.frame6 or\
+                self.frame7 ==self.frame8 == self.frame9: # checks rows
+                    return True
         if self.frame1 == self.frame4 == self.frame7 or\
             self.frame2 == self.frame5 == self.frame8 or\
                 self.frame3 ==self.frame6 == self.frame9: # checks columns
-                    self.print_end_result()
+                    return True
         if self.frame1 == self.frame5 == self.frame9 or\
             self.frame3 == self.frame5 == self.frame7: # checks diagonals
-                self.print_end_result()
+                return True
+        return False
                     
     def put_mark_in_random_space(self, frame):
         """ Puts O mark in a random space """
@@ -156,12 +159,13 @@ class MainFrame(ttk.Frame):
             self.mark = ttk.Label(self.random_space, text = " O", font=("Verdana", 45)) # creates an X label in the randomly chosen frame
             self.mark.grid(row=0, column=0, ipadx=17)
             self.empty_spaces.remove(self.random_space)
-            self.set_frame_status_as_o()
-            self.check_winner()
+            self.set_frame_state_as_o()
+            if self.check_winner() == True:
+                self.print_end_result("O")
         else:
-            self.print_end_result()
+            self.print_end_result("draw")
         
-    def set_frame_status_as_o(self):
+    def set_frame_state_as_o(self):
         """ Sets the value of a frame as "X" """
         if self.random_space == self.frame1:
             self.frame1 = "O"
@@ -182,15 +186,22 @@ class MainFrame(ttk.Frame):
         elif self.random_space == self.frame9:
             self.frame9 = "O"
         
-    def print_end_result(self):
+    def print_end_result(self, result):
+        """ Prints end result  """
+        if result == "draw":
+            text = "IT'S A DRAW"
+        elif result == "O":
+            text = "O WINS"
+        elif result == "X":
+            text = "X WINS"
         self.result=ttk.Label( 
-            text="IT'S A DRAW",
+            text=text,
             background="wheat3",
             relief="solid",
             padding=9,
             justify=tk.CENTER,
-            font=("Verdana", 20))
-        self.result.grid(row=0, columnspan=3, rowspan=4) 
+            font=("Verdana", 20))    
+        self.result.grid(row=0, columnspan=3, rowspan=4)
 
     
     
