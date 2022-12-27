@@ -10,28 +10,16 @@ from tkinter import ttk # import the new Tk themed widgets
 from ctypes import windll 
 windll.shcore.SetProcessDpiAwareness(1) # fix blurry text and UI
 import random
-import time
 
 
 
 class MainFrame(ttk.Frame):
-    """ Creates frame with an entry
-    """
+    """ Creates frame with an entry """
     
     def __init__(self, game):
         super().__init__(game)
         self.create_entry_widgets()
         self.empty_spaces = []
-        self.frame1 = None
-        self.frame2 = None
-        self.frame3 = None
-        self.frame4 = None
-        self.frame5 = None
-        self.frame6 = None
-        self.frame7 = None
-        self.frame8 = None
-        self.frame9 = None
-        
         
     def create_entry_widgets(self):
         """ Creates widgets on entry frame """
@@ -45,72 +33,9 @@ class MainFrame(ttk.Frame):
             padding=32,
             font=("Verdana", 10))
         self.instruction.grid(row=0, ipady=75) 
-        self.play_button = ttk.Button(text="PLAY")# create button widget for starting a game
+        self.play_button = ttk.Button(text="PLAY") # creates button widget for starting a game
         self.play_button.grid(row=1, pady=40, ipady=20)
-        self.play_button.bind('<Button>', self.change_frame) # bind play button with a function
-    
-    def return_pressed(self, frame):
-        """ Puts X mark in a clicked space """
-        self.mark = ttk.Label(frame, text = " X", font=("Verdana", 45))
-        self.mark.grid(row=0, column=0, ipadx=17)    
-        self.put_mark_in_random_space(frame)
-        if frame == self.frame1:
-            self.frame1 = "X"
-        elif frame == self.frame2:
-            self.frame2 = "X"
-        elif frame == self.frame3:
-            self.frame3 = "X"
-        elif frame == self.frame4:
-            self.frame4 = "X"
-        elif frame == self.frame5:
-            self.frame5 = "X"
-        elif frame == self.frame6:
-            self.frame6 = "X"
-        elif frame == self.frame7:
-            self.frame7 = "X"
-        elif frame == self.frame8:
-            self.frame8 = "X"
-        elif frame == self.frame9:
-            self.frame9 = "X"
-        
-    def put_mark_in_random_space(self, frame):
-        """ Puts O mark in a random space """
-        self.empty_spaces.remove(frame)
-        if len(self.empty_spaces) > 0: 
-            self.random_space = random.choice(self.empty_spaces)
-            self.mark = ttk.Label(self.random_space, text = " O", font=("Verdana", 45))
-            self.mark.grid(row=0, column=0, ipadx=17)
-            self.empty_spaces.remove(self.random_space)
-            if self.random_space == self.frame1:
-                self.frame1 = "O"
-            elif self.random_space == self.frame2:
-                self.frame2 = "O"
-            elif self.random_space == self.frame3:
-                self.frame3 = "O"
-            elif self.random_space == self.frame4:
-                self.frame4 = "O"
-            elif self.random_space == self.frame5:
-                self.frame5 = "O"
-            elif self.random_space == self.frame6:
-                self.frame6 = "O"
-            elif self.random_space == self.frame7:
-                self.frame7 = "O"
-            elif self.random_space == self.frame8:
-                self.frame8 = "O"
-            elif self.random_space == self.frame9:
-                self.frame9 = "O"
-        else:
-            self.print_end_result()
-        
-    def print_end_result(self):
-        self.result=ttk.Label( 
-            text="IT'S A DRAW",
-            background="wheat3",
-            relief="solid",
-            justify=tk.CENTER,
-            padding=32,
-            font=("Verdana", 20))
-        self.result.grid(row=0, rowspan=4, columnspan=3, ipady=100) 
+        self.play_button.bind('<Button>', self.change_frame) # binds play button with a function
     
     def change_frame(self, event):
         """ Handles PLAY button click event and creates new widgets for play """
@@ -125,10 +50,11 @@ class MainFrame(ttk.Frame):
             font=("Verdana", 10))
         self.message.grid(row=0, columnspan=3, ipadx=17, ipady=35)
         
+        # create frames to be clicked to put a mark:
         self.frame1 = ttk.Frame(borderwidth=1, relief="ridge")
         self.frame1.grid(row=1, column=0, sticky=tk.SE)
-        self.empty_spaces.append(self.frame1)
-        self.button1 = ttk.Button(self.frame1, command=lambda:self.return_pressed(self.frame1))
+        self.empty_spaces.append(self.frame1) # appends a frame to the list of yet not clicked spaces
+        self.button1 = ttk.Button(self.frame1, command=lambda:self.return_pressed(self.frame1)) # creates button in a frame
         self.button1.grid(ipadx=12, ipady=45)
         
         self.frame2 = ttk.Frame(borderwidth=1, relief="ridge")
@@ -178,12 +104,98 @@ class MainFrame(ttk.Frame):
         self.empty_spaces.append(self.frame9)
         self.button9 = ttk.Button(self.frame9, command=lambda:self.return_pressed(self.frame9))
         self.button9.grid(ipadx=12, ipady=45, sticky=tk.NW)
+    
+    def return_pressed(self, frame):
+        """ Puts X mark in a clicked space """
+        self.mark = ttk.Label(frame, text = " X", font=("Verdana", 45)) # creates an X label in the clicked frame
+        self.mark.grid(row=0, column=0, ipadx=17)    
+        self.set_frame_status_as_x(frame)
+        self.check_winner()
+        self.empty_spaces.remove(frame)
+        self.put_mark_in_random_space(frame)
         
+    def set_frame_status_as_x(self, frame):
+        """ Sets the value of a frame as "X" """
+        if frame == self.frame1:
+            self.frame1 = "X"
+        elif frame == self.frame2:
+            self.frame2 = "X"
+        elif frame == self.frame3:
+            self.frame3 = "X"
+        elif frame == self.frame4:
+            self.frame4 = "X"
+        elif frame == self.frame5:
+            self.frame5 = "X"
+        elif frame == self.frame6:
+            self.frame6 = "X"
+        elif frame == self.frame7:
+            self.frame7 = "X"
+        elif frame == self.frame8:
+            self.frame8 = "X"
+        elif frame == self.frame9:
+            self.frame9 = "X"
+            
+    def check_winner(self):
+        """ Checks if there are three same marks in a row, column or diagonal """
+        if self.frame1 == self.frame2 == self.frame3 or\
+            self.frame3 == self.frame4 == self.frame5 or\
+                self.frame6 ==self.frame7 == self.frame8: # checks rows
+                    self.print_end_result()
+        if self.frame1 == self.frame4 == self.frame7 or\
+            self.frame2 == self.frame5 == self.frame8 or\
+                self.frame3 ==self.frame6 == self.frame9: # checks columns
+                    self.print_end_result()
+        if self.frame1 == self.frame5 == self.frame9 or\
+            self.frame3 == self.frame5 == self.frame7: # checks diagonals
+                self.print_end_result()
+                    
+    def put_mark_in_random_space(self, frame):
+        """ Puts O mark in a random space """
+        if len(self.empty_spaces) > 0:  # checks if there are any empty spaces left
+            self.random_space = random.choice(self.empty_spaces) # randomly choses a space to put "O" mark
+            self.mark = ttk.Label(self.random_space, text = " O", font=("Verdana", 45)) # creates an X label in the randomly chosen frame
+            self.mark.grid(row=0, column=0, ipadx=17)
+            self.empty_spaces.remove(self.random_space)
+            self.set_frame_status_as_o()
+            self.check_winner()
+        else:
+            self.print_end_result()
         
+    def set_frame_status_as_o(self):
+        """ Sets the value of a frame as "X" """
+        if self.random_space == self.frame1:
+            self.frame1 = "O"
+        elif self.random_space == self.frame2:
+            self.frame2 = "O"
+        elif self.random_space == self.frame3:
+            self.frame3 = "O"
+        elif self.random_space == self.frame4:
+            self.frame4 = "O"
+        elif self.random_space == self.frame5:
+            self.frame5 = "O"
+        elif self.random_space == self.frame6:
+            self.frame6 = "O"
+        elif self.random_space == self.frame7:
+            self.frame7 = "O"
+        elif self.random_space == self.frame8:
+            self.frame8 = "O"
+        elif self.random_space == self.frame9:
+            self.frame9 = "O"
+        
+    def print_end_result(self):
+        self.result=ttk.Label( 
+            text="IT'S A DRAW",
+            background="wheat3",
+            relief="solid",
+            padding=9,
+            justify=tk.CENTER,
+            font=("Verdana", 20))
+        self.result.grid(row=0, columnspan=3, rowspan=4) 
+
+    
     
 class TicTacToe(tk.Tk):
-    """ Creates a root window
-    """
+    """ Creates a root window """
     
     def __init__(self):
         super().__init__()
