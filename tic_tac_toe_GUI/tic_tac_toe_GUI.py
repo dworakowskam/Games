@@ -190,19 +190,34 @@ class MainFrame(ttk.Frame):
         """ Prints end result  """
         if result == "draw":
             text = "IT'S A DRAW"
+            background = "wheat3"
         elif result == "O":
             text = "O WINS"
+            background = "red"
         elif result == "X":
             text = "X WINS"
+            background = "olive drab4"
         self.result=ttk.Label( 
             text=text,
-            background="wheat3",
+            background=background,
             relief="solid",
             padding=9,
             justify=tk.CENTER,
             font=("Verdana", 20))    
-        self.result.grid(row=0, columnspan=3, rowspan=4)
-
+        self.result.grid(row=0, columnspan=3, rowspan=2)
+        self.decide_what_next()
+        
+    def decide_what_next(self):
+        """ Asks player if he wants to play again or quit  """
+        self.question = ttk.Label(
+            text="Would you like to play again?",
+            background="cornsilk2",
+            relief="solid",
+            padding=15,
+            justify=tk.CENTER,
+            font=("Verdana", 10))
+        self.question.grid(row=1, columnspan=3, rowspan=2)
+        
     
     
 class TicTacToe(tk.Tk):
