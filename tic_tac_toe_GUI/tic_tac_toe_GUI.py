@@ -20,6 +20,7 @@ class MainFrame(ttk.Frame):
         super().__init__(game)
         self.create_entry_widgets()
         self.empty_spaces = []
+        self.again = 0
         
     def create_entry_widgets(self):
         """ Creates widgets on entry frame """
@@ -41,6 +42,8 @@ class MainFrame(ttk.Frame):
         """ Handles PLAY button click event and creates new widgets for play """
         self.instruction.grid_forget() # erases entry label
         self.play_button.grid_forget() # erases PLAY button
+        if self.again == 1:
+            self.result.grid_forget()
         self.message = "  Click on the square to put your mark"
         self.message = ttk.Label( # place a label on the root window
             text=self.message,
@@ -209,16 +212,25 @@ class MainFrame(ttk.Frame):
         
     def decide_what_next(self):
         """ Asks player if he wants to play again or quit  """
-        self.question = ttk.Label(
-            text="Would you like to play again?",
-            background="cornsilk2",
-            relief="solid",
-            padding=15,
-            justify=tk.CENTER,
-            font=("Verdana", 10))
-        self.question.grid(row=1, columnspan=3, rowspan=2)
+        self.play_again = ttk.Button(text="PLAY AGAIN")
+            # background="cornsilk2",
+            # relief="solid",
+            # padding=15,
+            # justify=tk.CENTER,
+            # font=("Verdana", 10))
+        self.play_again.grid(row=3, column=0)
+        self.again = 1
+        self.play_again.bind('<Button>', self.change_frame)
+        self.quit = ttk.Button(text="QUIT", command=self.quit_game)
+            # background="cornsilk2",
+            # relief="solid",
+            # padding=15,
+            # justify=tk.CENTER,
+            # font=("Verdana", 10))
+        self.quit.grid(row=3, column=2)
         
-    
+    def quit_game(self):
+        entry.destroy()
     
 class TicTacToe(tk.Tk):
     """ Creates a root window """
