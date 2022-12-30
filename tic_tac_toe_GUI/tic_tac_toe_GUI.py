@@ -44,6 +44,7 @@ class MainFrame(ttk.Frame):
         self.play_button.grid_forget() # erases PLAY button
         if self.again == 1:
             self.result.grid_forget()
+            self.empty_spaces = []
         self.message = "  Click on the square to put your mark"
         self.message = ttk.Label( # place a label on the root window
             text=self.message,
@@ -115,6 +116,7 @@ class MainFrame(ttk.Frame):
         self.set_frame_state_as_x(frame)
         if self.check_winner() == True:
             self.print_end_result("X")
+            self.disable_unclicked_buttons()
         else:
             self.empty_spaces.remove(frame)
             self.put_mark_in_random_space(frame)
@@ -165,8 +167,10 @@ class MainFrame(ttk.Frame):
             self.set_frame_state_as_o()
             if self.check_winner() == True:
                 self.print_end_result("O")
+                self.disable_unclicked_buttons()
         else:
             self.print_end_result("draw")
+            self.disable_unclicked_buttons()
         
     def set_frame_state_as_o(self):
         """ Sets the value of a frame as "X" """
@@ -209,6 +213,27 @@ class MainFrame(ttk.Frame):
             font=("Verdana", 20))    
         self.result.grid(row=0, columnspan=3, rowspan=2)
         self.decide_what_next()
+        
+    def disable_unclicked_buttons(self):
+        """ Sets the state of unclicked space buttons as disabled when game is over """
+        if self.frame1 != "X" or "O":
+            self.button1.config(state="disabled")
+        if self.frame2 != "X" or "O":
+            self.button2.config(state="disabled")
+        if self.frame3 != "X" or "O":
+            self.button3.config(state="disabled")
+        if self.frame4 != "X" or "O":
+            self.button4.config(state="disabled")
+        if self.frame5 != "X" or "O":
+            self.button5.config(state="disabled")
+        if self.frame6 != "X" or "O":
+            self.button6.config(state="disabled")
+        if self.frame7 != "X" or "O":
+            self.button7.config(state="disabled")
+        if self.frame8 != "X" or "O":
+            self.button8.config(state="disabled")
+        if self.frame9 != "X" or "O":
+            self.button9.config(state="disabled")
         
     def decide_what_next(self):
         """ Asks player if he wants to play again or quit  """
