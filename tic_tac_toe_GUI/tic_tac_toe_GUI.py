@@ -238,25 +238,18 @@ class MainFrame(ttk.Frame):
     def decide_what_next(self):
         """ Asks player if he wants to play again or quit  """
         self.play_again = ttk.Button(text="PLAY AGAIN")
-            # background="cornsilk2",
-            # relief="solid",
-            # padding=15,
-            # justify=tk.CENTER,
-            # font=("Verdana", 10))
         self.play_again.grid(row=3, column=0)
         self.again = 1
         self.play_again.bind('<Button>', self.change_frame)
         self.quit = ttk.Button(text="QUIT", command=self.quit_game)
-            # background="cornsilk2",
-            # relief="solid",
-            # padding=15,
-            # justify=tk.CENTER,
-            # font=("Verdana", 10))
         self.quit.grid(row=3, column=2)
         
     def quit_game(self):
+        """ Ends program """
         entry.destroy()
+  
     
+  
 class TicTacToe(tk.Tk):
     """ Creates a root window """
     
